@@ -1,0 +1,25 @@
+{
+  "name": "mygene-polymer",
+  "version": "1.0",
+  "description": "My gene.info component using polymer",
+  "main": "script.js",
+  "keywords": [
+    "mygene",
+    "polymer"
+  ],
+  "authors": [
+    "gkarthik"
+  ],
+  "license": "MIT",
+  "homepage": "http://gkarthik.net/mygene-polymer",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.3.4"
+  }
+}
