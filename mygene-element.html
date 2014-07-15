@@ -1,0 +1,26 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+
+<polymer-element name="mygene-element" noscript>
+  <template>
+  <input id="queryInput" value="{{query}}" placeholder="Enter Query" /><br>
+  <span>Query: {{query}}</span><br><br>
+  </template>
+  <script>
+	Polymer('mygene-element',{
+			query: "",
+			resp: "",
+			queryChanged: function(){
+				var thisEl = this;
+				if(this.query!=""){
+				console.log(thisEl.query);
+				$.getJSON("http://mygene.info/v2/query?q="+thisEl.query+"&callback=?",function(data){
+					console.log(data);
+						thisEl.resp = data.hits;
+					});
+				} else {
+					thisEl.resp = [];
+				}
+			}
+		});
+  </script>
+</polymer-element>
