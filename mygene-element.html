@@ -3,16 +3,22 @@
 <polymer-element name="mygene-element" noscript>
   <template>
   <input id="queryInput" value="{{query}}" placeholder="Enter Query" /><br>
-  <span>Query: {{query}}</span><br><br>
+  <span>Query: {{query}}</span>
+  <div>{{geneInfo}}</div>
+  <ul class="gene-list">
+	  <template repeat="{{ gene in resp }}">
+	  <li on-click="{{loadGeneInfo}}" data-id="{{gene.entrezgene}}">{{gene.name}}</li>
+	  </template>
+  </ul>
   </template>
   <script>
 	Polymer('mygene-element',{
 			query: "",
 			resp: "",
+			geneInfo:"",
 			queryChanged: function(){
 				var thisEl = this;
 				if(this.query!=""){
-				console.log(thisEl.query);
 				$.getJSON("http://mygene.info/v2/query?q="+thisEl.query+"&callback=?",function(data){
 					console.log(data);
 						thisEl.resp = data.hits;
@@ -20,6 +26,14 @@
 				} else {
 					thisEl.resp = [];
 				}
+			},
+			loadGeneInfo: function(e){
+			var id = $(e.target).data('id');
+			
+			var thisEl = this;
+				$.getJSON("http://mygene.info/v2/gene/"+id+"?fields=summary&callback=?",function(data){
+					thisEl.geneInfo = data.summary;
+				});
 			}
 		});
   </script>
